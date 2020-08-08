@@ -1,0 +1,9 @@
+{
+  "goals":[ "goal1", "goal2", "Mon", "Tues" ],
+  "tasks":[ 
+            { "name":"firstMan",
+              "goals":[ "goal1", "Mon" ] },
+            { "name":"secondMan",
+              "goals":[ "goal2", "Tues" ] }
+          ]
+}
