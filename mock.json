@@ -1,11 +1,11 @@
 {
-  "goals":[ "goal1", "goal2", "Mon", "Tues" ],
-  "tasks":[ 
+  "tags":[ "goal1", "goal2", "Mon", "Tues" ],
+  "tasks":[
             { "name":"firstMan",
-              "goals":[ "goal1", "Mon" ] },
+              "tags":[ "goal1", "Mon" ] },
             { "name":"secondMan",
-              "goals":[ "goal2", "Tues" ] },
+              "tags":[ "goal2", "Tues" ] },
             { "name":"thirdMan",
-              "goals":[ "goal1", "Tues" ] }
+              "tags":[ "goal1", "Tues" ] }
           ]
 }
