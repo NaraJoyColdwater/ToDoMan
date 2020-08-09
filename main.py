@@ -1,17 +1,19 @@
 import json
 
-with open('mock.json') as file:
+filename = 'mock.json'
+
+with open(filename) as file:
     data = json.load(file)
-    for task in data['tasks']:
-        print(task['name'])
 
 def taskCreate(name):
-    pass
+    new = {'name': name, 'tags': []}
+    data['tasks'].append(new)
 
 def taskDelete(name):
-    pass
+    new = {'name': name, 'tags': []}
+    data['tasks'].remove(new)
 
-def taskRename(name):
+def taskRename(old, new):
     pass
 
 def taskTagAdd(name):
@@ -26,5 +28,13 @@ def tagCreate(name):
 def tagDelete(name):
     pass
 
-def tagRename(name):
+def tagRename(old, new):
     pass
+
+taskCreate('nntest')
+for task in data['tasks']:
+    print(task)
+print()
+taskDelete('nntest')
+for task in data['tasks']:
+    print(task)
