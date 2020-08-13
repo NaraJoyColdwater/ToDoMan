@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    "task 4",
+    "nice",
+    "task 2",
+    "task 1"
+  ],
+  "tags": {
+    "tag 2": [
+      "task 4"
+    ],
+    "tag 69": [
+      "nice"
+    ]
+  }
+}

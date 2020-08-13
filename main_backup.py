@@ -12,60 +12,60 @@ except IOError:
 tasks = data['tasks']
 tags = data['tags']
 
-def tagCreate(name):
-  if name in tags:
-    return False
-  tags[name] = []
-  return True
-
-def tagDelete(name):
-  if name in tags:
-    tags.pop(name)
-    return True
-  return False
-
-def tagRename(old, new):
-  if old in tags and new not in tags:
-    tags[new] = tags[old]
-    tagDelete(old)
-    return True
-  return False
-
-def tagTaskAdd(task, tag):
-  if tag in tags and task not in tags[tag] and task in tasks:
-    tags[tag].append(task)
-    return True
-  return False
-
-def tagTaskRemove(task, tag):
-  if tag in tags and task in tags[tag] and task in tasks:
-    tags[tag].remove(task)
-    return True
-  return False
-      
 def taskCreate(name):
   if name in tasks:
     return False
-  tasks.append(name)
+  tasks[name] = []
   return True
 
 def taskDelete(name):
   if name in tasks:
-    tasks.remove(name)
-    for taskList in tags.values():
-      if name in taskList:
-        taskList.remove(name)
+    tasks.pop(name)
     return True
   return False
 
 def taskRename(old, new):
   if old in tasks and new not in tasks:
-    tasks.remove(old)
-    tasks.append(new)
-    for taskList in tags.values():
-      if old in taskList:
-        taskList.remove(old)
-        taskList.append(new)
+    tasks[new] = tasks[old]
+    taskDelete(old)
+    return True
+  return False
+
+def taskTagAdd(task, tag):
+  if task in tasks and tag not in tasks[task] and tag in tags:
+    tasks[task].append(tag)
+    return True
+  return False
+
+def taskTagRemove(task, tag):
+  if task in tasks and tag in tasks[task] and tag in tags:
+    tasks[task].remove(tag)
+    return True
+  return False
+      
+def tagCreate(name):
+  if name in tags:
+    return False
+  tags.append(name)
+  return True
+
+def tagDelete(name):
+  if name in tags:
+    tags.remove(name)
+    for tagList in tasks.values():
+      if name in tagList:
+        tagList.remove(name)
+    return True
+  return False
+
+def tagRename(old, new):
+  if old in tags:
+    tags.remove(old)
+    tags.append(new)
+    for tagList in tasks.values():
+      if old in tagList:
+        tagList.remove(old)
+        tagList.append(new)
     return True
   return False
 
@@ -88,26 +88,24 @@ tagCreate('tag 2')
 tagCreate('tag 1') # Duplicate tag
 
 # Interaction:
-tagTaskAdd('task 2', 'tag 1')
-tagTaskAdd('task 2', 'tag 3') # Nonexistent tag
-tagTaskAdd('task 5', 'tag 1') # Nonexistent task
+taskTagAdd('task 2', 'tag 1')
+taskTagAdd('task 2', 'tag 3') # Nonexistent tag
+taskTagAdd('task 5', 'tag 1') # Nonexistent task
 print('3: ' + json.dumps(data))
 taskRename('task 2', 'task 4')
 print('4: ' + json.dumps(data))
-tagTaskAdd('task 4', 'tag 2')
+taskTagAdd('task 4', 'tag 2')
 
 # Tag editing:
 tagRename('tag 1', 'tag 3')
 print('5: ' + json.dumps(data))
 tagDelete('tag 3')
 print('6: ' + json.dumps(data))
-tagCreate('tag 69')
-taskCreate('nice')
-tagTaskAdd('nice', 'tag 69')
+
 # TODO : add file writing
 try:
   with open(filename, 'wt') as file:
-    json.dump(data, file, indent=2)
+    json.dump(data, file, indent=4)
 except IOError:
   print('Error: file ' + filename + ' not available for writing.')
   sys.exit(1)
