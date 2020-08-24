@@ -9,8 +9,10 @@ def deserialize(filename: str) -> bool:
     except IOError:
         print('deserialize(): ' + filename + ' not available for reading.')
         return False
-    global tasks = data['tasks']
-    global tags = data['tags']
+    global tasks
+    tasks = data['tasks']
+    global tags
+    tags = data['tags']
     return True
 
 def serialize(filename: str) -> bool:
@@ -52,7 +54,7 @@ def tagTaskRemove(task: str, tag: str) -> bool:
         tags[tag].remove(task)
         return True
     return False
-      
+
 def taskCreate(name: str) -> bool:
     if name in tasks:
         return False
@@ -87,4 +89,3 @@ def taskSwitchWithinTag(first: str, second: str, tag: str) -> bool:
     secondIndex = taskList.index(second)
     taskList[firstIndex], taskList[secondIndex] = taskList[secondIndex], taskList[firstIndex]
     return True
-
